@@ -1,0 +1,11 @@
+<h1>{{ heading }}</h1>
+<table>
+  <thead>
+    <th *ngFor="let column of data?.columns">{{ column.label }}</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data?.rows">
+      <td *ngFor="let column of data?.columns">{{ row[column.accessor] }}</td>
+    </tr>
+  </tbody>
+</table>
