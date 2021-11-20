@@ -8,10 +8,11 @@ import { AppComponent } from './app.component';
 import { StarWarsCodexComponent } from './star-wars-codex/star-wars-codex.component';
 import { HeaderComponent } from './header/header.component';
 import { CharacterListComponent } from './star-wars-codex/character-list/character-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, StarWarsCodexComponent, CharacterListComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

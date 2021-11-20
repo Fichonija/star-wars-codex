@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: StarJedi;
+  font-family: StarJedi, "Droid Sans", arial, verdana, sans-serif;
   color: #ebd71c;
   background: url(assets/images/stars-bg.jpg) center center;
 }
