@@ -1,15 +1,12 @@
 <div id="pagination">
-  <button [disabled]="paginationData?.currentPageSection === 1">
-    ⏮️ First
-  </button>
-  <button [disabled]="paginationData?.currentPageSection === 1">
+  <button [disabled]="paginationData.currentPageSection === 1">⏮️ First</button>
+  <button [disabled]="paginationData.currentPageSection === 1">
     ⬅️ Previous
   </button>
   <button
-    [disabled]="paginationData?.currentPageSection === 3"
+    [disabled]="paginationData.currentPageSection === 3"
     (click)="onNextPageClicked()"
   >
     Next ➡️
   </button>
-  <!-- <button [disabled]="paginationData?.currentPageSection === 3">Last ⏭️</button> -->
 </div>

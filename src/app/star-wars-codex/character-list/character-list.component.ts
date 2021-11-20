@@ -28,7 +28,7 @@ export class CharacterListComponent implements OnInit, OnDestroy {
 
   public charactersResponse: ICharactersResponse;
   public charactersTableData: TableData;
-  public charactersPagination: PaginationData;
+  public charactersTablePagination: PaginationData;
 
   constructor(
     private starWarsService: StarWarsService,
@@ -43,9 +43,14 @@ export class CharacterListComponent implements OnInit, OnDestroy {
           this.charactersTableData = new CharactersTableData(
             charactersResponse.characters
           );
-          this.charactersPagination = {
+          this.charactersTablePagination = {
             currentPageNumber: charactersResponse.currentPageNumber,
-            currentPageSection: PageSection.FirstPage,
+            currentPageSection:
+              charactersResponse.previousPageUrl === null
+                ? PageSection.FirstPage
+                : charactersResponse.nextPageUrl === null
+                ? PageSection.LastPage
+                : PageSection.Middle,
           };
 
           this.changeDetectorRef.markForCheck();
