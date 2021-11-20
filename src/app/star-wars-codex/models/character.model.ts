@@ -46,8 +46,10 @@ export class CharactersResponse implements ICharactersResponse {
     if (this.previousPageUrl === null) {
       this.currentPageNumber = 1;
     } else {
-      let previousPageUrlNumber = this.previousPageUrl.split('page=')[1];
-      this.currentPageNumber = +previousPageUrlNumber;
+      let previousPageUrlNumber = Number(
+        this.previousPageUrl.split('page=')[1]
+      );
+      this.currentPageNumber = ++previousPageUrlNumber;
     }
   }
 

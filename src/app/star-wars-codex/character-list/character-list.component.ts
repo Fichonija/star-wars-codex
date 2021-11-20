@@ -6,9 +6,13 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { TableData } from 'src/app/table/table-data.model';
 import {
-  CharactersResponse,
+  PageSection,
+  PaginationData,
+  TableData,
+} from 'src/app/table/table-data.model';
+import {
+  ICharactersResponse,
   CharactersTableData,
 } from '../models/character.model';
 import { StarWarsService } from '../star-wars.service';
@@ -20,10 +24,11 @@ import { StarWarsService } from '../star-wars.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterListComponent implements OnInit, OnDestroy {
-  private characterResponse$: Subscription | undefined;
+  private characterResponse$: Subscription;
 
-  public charactersResponse: CharactersResponse | undefined;
-  public charactersTableData: TableData | undefined;
+  public charactersResponse: ICharactersResponse;
+  public charactersTableData: TableData;
+  public charactersPagination: PaginationData;
 
   constructor(
     private starWarsService: StarWarsService,
@@ -31,15 +36,26 @@ export class CharacterListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.characterResponse$ = this.starWarsService
-      .fetchPeople()
-      .subscribe((charactersResponse) => {
-        this.charactersResponse = charactersResponse;
-        this.charactersTableData = new CharactersTableData(
-          charactersResponse.characters
-        );
-        this.changeDetectorRef.markForCheck();
-      });
+    this.characterResponse$ =
+      this.starWarsService.charactersResponseObservable.subscribe(
+        (charactersResponse) => {
+          this.charactersResponse = charactersResponse;
+          this.charactersTableData = new CharactersTableData(
+            charactersResponse.characters
+          );
+          this.charactersPagination = {
+            currentPageNumber: charactersResponse.currentPageNumber,
+            currentPageSection: PageSection.FirstPage,
+          };
+
+          this.changeDetectorRef.markForCheck();
+        }
+      );
+    this.starWarsService.fetchCharacters();
+  }
+
+  onGetPagedData(pageNumber: number) {
+    this.starWarsService.fetchCharacters(pageNumber);
   }
 
   ngOnDestroy() {

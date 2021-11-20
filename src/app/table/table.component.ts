@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
-import { TableData } from './table-data.model';
+import { PaginationData, TableData } from './table-data.model';
 
 @Component({
   selector: 'app-table',
@@ -14,9 +16,16 @@ import { TableData } from './table-data.model';
 })
 export class TableComponent implements OnInit {
   @Input() heading: string = '';
-  @Input() data: TableData | undefined;
+  @Input() data: TableData;
+  @Input() paginationData: PaginationData;
+
+  @Output() getPagedData: EventEmitter<number> = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  public onGetPage(pageNumber: number) {
+    this.getPagedData.emit(pageNumber);
+  }
 }

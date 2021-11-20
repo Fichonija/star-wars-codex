@@ -10,4 +10,8 @@
     </tr>
   </tbody>
 </table>
-<app-table-pagination></app-table-pagination>
+<app-table-pagination
+  *ngIf="paginationData !== undefined"
+  [paginationData]="paginationData"
+  (getPage)="onGetPage($event)"
+></app-table-pagination>

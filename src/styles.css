@@ -23,6 +23,9 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:hover:enabled {
   color: var(--sw-purple);
+}
+button:hover:disabled {
+  cursor: initial;
 }

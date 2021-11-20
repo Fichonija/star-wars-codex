@@ -2,6 +2,8 @@
   <app-table
     heading="Star Wars Characters"
     [data]="charactersTableData"
+    [paginationData]="charactersPagination"
+    (getPagedData)="onGetPagedData($event)"
   ></app-table>
 </div>
 <ng-template #loading>Loading characters...</ng-template>
