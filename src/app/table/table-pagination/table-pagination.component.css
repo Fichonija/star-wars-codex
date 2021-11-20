@@ -1,0 +1,10 @@
+#pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1em;
+  padding: 0 1em;
+}
+
+button {
+  margin-left: 1em;
+}
