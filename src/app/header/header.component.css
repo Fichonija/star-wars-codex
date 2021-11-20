@@ -4,11 +4,6 @@ nav {
   padding: 1em 4em;
 }
 
-nav p {
-  margin: 0;
-  padding: 14px 16px;
-}
-
 ul {
   display: flex;
   list-style-type: none;
@@ -17,7 +12,7 @@ ul {
   overflow: hidden;
 }
 
-li a {
+a {
   display: block;
   padding: 14px 16px;
   color: #ebd71c;
@@ -25,11 +20,11 @@ li a {
   text-decoration: none;
 }
 
-li a:hover {
+a:hover {
   color: #551a8b;
   cursor: pointer;
 }
 
-li a.active {
+a.active {
   color: #551a8b;
 }
