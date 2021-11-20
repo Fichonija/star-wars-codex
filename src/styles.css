@@ -1,13 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
   font-family: StarJedi;
-  src: url("./assets/fonts/Starjedi.ttf");
+  src: url(assets/fonts/Starjedi.ttf);
 }
 @font-face {
   font-family: StarJediHollow;
-  src: url("./assets/fonts/Starjhol.ttf");
+  src: url(assets/fonts/Starjhol.ttf);
 }
 
 body {
   font-family: StarJedi;
+  color: #ebd71c;
+  background: url(assets/images/stars-bg.jpg) center center;
 }
