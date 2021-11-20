@@ -20,10 +20,10 @@ export class StarWarsService {
 
   constructor(private http: HttpClient) {}
 
-  public fetchCharacters(page?: number): void {
-    const pagingQuery = page ? `?&page=${page}` : '';
+  public fetchCharacters(page?: number, searchValue?: string): void {
+    let queryParameters = this.getQueryParameters(page, searchValue);
     this.http
-      .get(`${this.swapiBaseUrl}people${pagingQuery}`)
+      .get(`${this.swapiBaseUrl}people${queryParameters}`)
       .pipe(
         map((response: any) => new CharactersResponse(response)),
         catchError(this.handleError)
@@ -31,6 +31,20 @@ export class StarWarsService {
       .subscribe((charactersResponse) =>
         this.charactersResponseSubject.next(charactersResponse)
       );
+  }
+
+  private getQueryParameters(page?: number, searchValue?: string): string {
+    let queryParameters = '';
+    if (searchValue) {
+      queryParameters += `search=${searchValue}`;
+    } else if (page) {
+      queryParameters += `page=${page}`;
+    }
+
+    if (queryParameters !== '') {
+      queryParameters = '?' + queryParameters;
+    }
+    return queryParameters;
   }
 
   private handleError(error: HttpErrorResponse) {
