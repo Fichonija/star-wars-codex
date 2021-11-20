@@ -19,12 +19,17 @@ ul {
 
 li a {
   display: block;
-  text-align: center;
   padding: 14px 16px;
+  color: #ebd71c;
+  text-align: center;
   text-decoration: none;
 }
 
 li a:hover {
-  color: white;
+  color: #551a8b;
   cursor: pointer;
+}
+
+li a.active {
+  color: #551a8b;
 }
