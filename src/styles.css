@@ -1,4 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --sw-yellow: #ebd71c;
+  --sw-purple: #551a8b;
+}
+
 @font-face {
   font-family: StarJedi;
   src: url(assets/fonts/Starjedi.ttf);
@@ -10,6 +14,15 @@
 
 body {
   font-family: StarJedi, "Droid Sans", arial, verdana, sans-serif;
-  color: #ebd71c;
+  color: var(--sw-yellow);
   background: url(assets/images/stars-bg.jpg) center center;
+}
+
+button {
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+
+button:hover {
+  color: var(--sw-purple);
 }

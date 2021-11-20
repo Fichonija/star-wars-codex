@@ -15,16 +15,16 @@ ul {
 a {
   display: block;
   padding: 14px 16px;
-  color: #ebd71c;
+  color: var(--sw-yellow);
   text-align: center;
   text-decoration: none;
 }
 
 a:hover {
-  color: #551a8b;
+  color: var(--sw-purple);
   cursor: pointer;
 }
 
 a.active {
-  color: #551a8b;
+  color: var(--sw-purple);
 }
