@@ -1,0 +1,13 @@
+<div
+  *ngIf="
+    starWarsService.charactersResponse$ | async as charactersResponse;
+    else loading
+  "
+>
+  <ul>
+    <li *ngFor="let character of charactersResponse.characters">
+      {{ character.name }}
+    </li>
+  </ul>
+</div>
+<ng-template #loading>Loading characters...</ng-template>
