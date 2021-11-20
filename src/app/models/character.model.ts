@@ -1,4 +1,4 @@
-import { TableColumn, TableData } from 'src/app/models/table-data.model';
+import { ITableColumn, ITableData } from 'src/app/models/table-data.model';
 
 export interface ICharacter {
   name: string;
@@ -73,8 +73,8 @@ export class CharactersResponse implements ICharactersResponse {
   }
 }
 
-export class CharactersTableData implements TableData {
-  columns: TableColumn[] = [
+export class CharactersTableData implements ITableData {
+  columns: ITableColumn[] = [
     { accessor: 'name', label: 'Name' },
     { accessor: 'birthYear', label: 'Birth Year' },
     { accessor: 'gender', label: 'Gender' },

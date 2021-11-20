@@ -1,13 +1,20 @@
 import { ICharactersResponse } from './character.model';
 
-export interface TableColumn {
+export interface ITableColumn {
   accessor: string;
   label: string;
 }
 
-export interface TableData {
-  columns: TableColumn[];
+export interface ITableData {
+  columns: ITableColumn[];
   rows: any[];
+}
+
+export interface ITableParameters {
+  heading: string;
+  data: ITableData;
+  searchAttribute: string;
+  paginationData: IPaginationData;
 }
 
 export enum PageSection {

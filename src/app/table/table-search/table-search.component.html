@@ -1,4 +1,9 @@
 <div>
-  <label for="searchInput">Search by name:</label>
-  <input id="searchInput" name="searchInput" type="text" />
+  <label for="searchInput">Search by {{ searchAttribute }}:</label>
+  <input
+    id="searchInput"
+    name="searchInput"
+    type="text"
+    (keyup)="onSearchInputChange($event)"
+  />
 </div>

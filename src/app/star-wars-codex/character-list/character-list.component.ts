@@ -7,9 +7,10 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
-  TableData,
+  ITableData,
   IPaginationData,
   CharactersPaginationData,
+  ITableParameters,
 } from 'src/app/models/table-data.model';
 import {
   ICharactersResponse,
@@ -27,8 +28,7 @@ export class CharacterListComponent implements OnInit, OnDestroy {
   private characterResponse$: Subscription;
 
   public charactersResponse: ICharactersResponse;
-  public charactersTableData: TableData;
-  public charactersTablePagination: IPaginationData;
+  public charactersTableParameters: ITableParameters;
 
   constructor(
     private starWarsService: StarWarsService,
@@ -40,12 +40,12 @@ export class CharacterListComponent implements OnInit, OnDestroy {
       this.starWarsService.charactersResponseObservable.subscribe(
         (charactersResponse) => {
           this.charactersResponse = charactersResponse;
-          this.charactersTableData = new CharactersTableData(
-            charactersResponse.characters
-          );
-          this.charactersTablePagination = new CharactersPaginationData(
-            charactersResponse
-          );
+          this.charactersTableParameters = {
+            heading: 'Star Wars Characters',
+            data: new CharactersTableData(charactersResponse.characters),
+            searchAttribute: 'name',
+            paginationData: new CharactersPaginationData(charactersResponse),
+          };
 
           this.changeDetectorRef.markForCheck();
         }

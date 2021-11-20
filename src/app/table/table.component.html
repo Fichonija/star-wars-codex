@@ -1,20 +1,26 @@
 <div id="table-header">
-  <h1>{{ heading }}</h1>
-  <app-table-search></app-table-search>
+  <h1>{{ tableParameters.heading }}</h1>
+  <app-table-search
+    [searchAttribute]="tableParameters.searchAttribute"
+  ></app-table-search>
 </div>
 <table>
   <thead>
-    <th *ngFor="let column of data?.columns">{{ column.label }}</th>
+    <th *ngFor="let column of tableParameters.data.columns">
+      {{ column.label }}
+    </th>
   </thead>
   <tbody>
-    <tr *ngFor="let row of data?.rows">
-      <td *ngFor="let column of data?.columns">{{ row[column.accessor] }}</td>
+    <tr *ngFor="let row of tableParameters.data.rows">
+      <td *ngFor="let column of tableParameters.data.columns">
+        {{ row[column.accessor] }}
+      </td>
       <td><button>Details</button></td>
     </tr>
   </tbody>
 </table>
 <app-table-pagination
-  *ngIf="paginationData !== undefined"
-  [paginationData]="paginationData"
+  *ngIf="tableParameters.paginationData !== undefined"
+  [paginationData]="tableParameters.paginationData"
   (getPage)="onGetPage($event)"
 ></app-table-pagination>

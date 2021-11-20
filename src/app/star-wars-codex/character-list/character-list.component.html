@@ -1,8 +1,6 @@
 <div *ngIf="charactersResponse !== undefined; else loading">
   <app-table
-    heading="Star Wars Characters"
-    [data]="charactersTableData"
-    [paginationData]="charactersTablePagination"
+    [tableParameters]="charactersTableParameters"
     (getPagedData)="onGetPagedData($event)"
   ></app-table>
 </div>

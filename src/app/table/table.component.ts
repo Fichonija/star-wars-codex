@@ -6,7 +6,11 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { IPaginationData, TableData } from '../models/table-data.model';
+import {
+  IPaginationData,
+  ITableData,
+  ITableParameters,
+} from '../models/table-data.model';
 
 @Component({
   selector: 'app-table',
@@ -15,9 +19,7 @@ import { IPaginationData, TableData } from '../models/table-data.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit {
-  @Input() heading: string = '';
-  @Input() data: TableData;
-  @Input() paginationData: IPaginationData;
+  @Input() tableParameters: ITableParameters;
 
   @Output() getPagedData: EventEmitter<number> = new EventEmitter();
 
