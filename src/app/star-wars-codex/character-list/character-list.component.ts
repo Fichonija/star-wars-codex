@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
-  PageSection,
-  PaginationData,
   TableData,
+  IPaginationData,
+  CharactersPaginationData,
 } from 'src/app/models/table-data.model';
 import {
   ICharactersResponse,
@@ -28,7 +28,7 @@ export class CharacterListComponent implements OnInit, OnDestroy {
 
   public charactersResponse: ICharactersResponse;
   public charactersTableData: TableData;
-  public charactersTablePagination: PaginationData;
+  public charactersTablePagination: IPaginationData;
 
   constructor(
     private starWarsService: StarWarsService,
@@ -43,15 +43,9 @@ export class CharacterListComponent implements OnInit, OnDestroy {
           this.charactersTableData = new CharactersTableData(
             charactersResponse.characters
           );
-          this.charactersTablePagination = {
-            currentPageNumber: charactersResponse.currentPageNumber,
-            currentPageSection:
-              charactersResponse.previousPageUrl === null
-                ? PageSection.FirstPage
-                : charactersResponse.nextPageUrl === null
-                ? PageSection.LastPage
-                : PageSection.Middle,
-          };
+          this.charactersTablePagination = new CharactersPaginationData(
+            charactersResponse
+          );
 
           this.changeDetectorRef.markForCheck();
         }

@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { PaginationData, TableData } from '../models/table-data.model';
+import { IPaginationData, TableData } from '../models/table-data.model';
 
 @Component({
   selector: 'app-table',
@@ -17,7 +17,7 @@ import { PaginationData, TableData } from '../models/table-data.model';
 export class TableComponent implements OnInit {
   @Input() heading: string = '';
   @Input() data: TableData;
-  @Input() paginationData: PaginationData;
+  @Input() paginationData: IPaginationData;
 
   @Output() getPagedData: EventEmitter<number> = new EventEmitter();
 
