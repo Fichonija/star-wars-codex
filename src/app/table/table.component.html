@@ -2,6 +2,7 @@
   <h1>{{ tableParameters.heading }}</h1>
   <app-table-search
     [searchAttribute]="tableParameters.searchAttribute"
+    (searchRecordsBy)="onSearchRecordsBy($event)"
   ></app-table-search>
 </div>
 <table>

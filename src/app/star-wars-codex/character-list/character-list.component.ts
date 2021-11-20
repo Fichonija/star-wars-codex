@@ -29,6 +29,7 @@ export class CharacterListComponent implements OnInit, OnDestroy {
 
   public charactersResponse: ICharactersResponse;
   public charactersTableParameters: ITableParameters;
+  public charactersSearchAttribute: string = 'name';
 
   constructor(
     private starWarsService: StarWarsService,
@@ -43,7 +44,7 @@ export class CharacterListComponent implements OnInit, OnDestroy {
           this.charactersTableParameters = {
             heading: 'Star Wars Characters',
             data: new CharactersTableData(charactersResponse.characters),
-            searchAttribute: 'name',
+            searchAttribute: this.charactersSearchAttribute,
             paginationData: new CharactersPaginationData(charactersResponse),
           };
 
@@ -55,6 +56,10 @@ export class CharacterListComponent implements OnInit, OnDestroy {
 
   onGetPagedData(pageNumber: number) {
     this.starWarsService.fetchCharacters(pageNumber);
+  }
+
+  onGetFilteredData(value: string) {
+    this.starWarsService.fetchCharacters(undefined, value);
   }
 
   ngOnDestroy() {

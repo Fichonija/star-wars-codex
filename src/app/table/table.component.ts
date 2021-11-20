@@ -6,11 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  IPaginationData,
-  ITableData,
-  ITableParameters,
-} from '../models/table-data.model';
+import { ITableParameters } from '../models/table-data.model';
 
 @Component({
   selector: 'app-table',
@@ -22,6 +18,7 @@ export class TableComponent implements OnInit {
   @Input() tableParameters: ITableParameters;
 
   @Output() getPagedData: EventEmitter<number> = new EventEmitter();
+  @Output() getFilteredData: EventEmitter<string> = new EventEmitter();
 
   constructor() {}
 
@@ -29,5 +26,9 @@ export class TableComponent implements OnInit {
 
   public onGetPage(pageNumber: number) {
     this.getPagedData.emit(pageNumber);
+  }
+
+  public onSearchRecordsBy(attributeValue: string) {
+    this.getFilteredData.emit(attributeValue);
   }
 }

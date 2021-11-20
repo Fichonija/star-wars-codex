@@ -2,6 +2,7 @@
   <app-table
     [tableParameters]="charactersTableParameters"
     (getPagedData)="onGetPagedData($event)"
+    (getFilteredData)="onGetFilteredData($event)"
   ></app-table>
 </div>
 <ng-template #loading>Loading characters...</ng-template>
