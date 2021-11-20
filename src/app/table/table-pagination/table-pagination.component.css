@@ -1,7 +1,16 @@
 #pagination {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: 1em;
+}
+
+#pagination-info {
+  margin: 0;
+}
+
+#pagination-actions {
+  display: flex;
+  justify-content: flex-end;
   padding: 0 1em;
 }
 

@@ -4,7 +4,6 @@ import { catchError, map, Observable, Subject, throwError } from 'rxjs';
 
 import {
   CharactersResponse,
-  ICharacter,
   ICharactersResponse,
 } from '../models/character.model';
 

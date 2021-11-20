@@ -1,20 +1,34 @@
 <div id="pagination">
-  <button
-    [disabled]="paginationData.currentPageSection === 1"
-    (click)="onFirstPageClicked()"
-  >
-    ⏮️ First
-  </button>
-  <button
-    [disabled]="paginationData.currentPageSection === 1"
-    (click)="onPreviousPageClicked()"
-  >
-    ⬅️ Previous
-  </button>
-  <button
-    [disabled]="paginationData.currentPageSection === 3"
-    (click)="onNextPageClicked()"
-  >
-    Next ➡️
-  </button>
+  <div id="pagination-info">
+    <p>
+      {{
+        "Page " +
+          paginationData.currentPageNumber +
+          ", showing " +
+          paginationData.currentRecordCount +
+          " of " +
+          paginationData.totalRecordCount
+      }}
+    </p>
+  </div>
+  <div id="pagination-actions">
+    <button
+      [disabled]="paginationData.currentPageSection === 1"
+      (click)="onFirstPageClicked()"
+    >
+      ⏮️ First
+    </button>
+    <button
+      [disabled]="paginationData.currentPageSection === 1"
+      (click)="onPreviousPageClicked()"
+    >
+      ⬅️ Previous
+    </button>
+    <button
+      [disabled]="paginationData.currentPageSection === 3"
+      (click)="onNextPageClicked()"
+    >
+      Next ➡️
+    </button>
+  </div>
 </div>
