@@ -1,3 +1,14 @@
+#table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin: 1em 0;
+}
+
+#table-header h1 {
+  margin: 0;
+}
+
 table {
   width: 100%;
 }

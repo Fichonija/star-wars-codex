@@ -1,4 +1,7 @@
-<h1>{{ heading }}</h1>
+<div id="table-header">
+  <h1>{{ heading }}</h1>
+  <app-table-search></app-table-search>
+</div>
 <table>
   <thead>
     <th *ngFor="let column of data?.columns">{{ column.label }}</th>
