@@ -7,7 +7,10 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TableData } from 'src/app/table/table-data.model';
-import { CharactersResponse } from '../models/character.model';
+import {
+  CharactersResponse,
+  CharactersTableData,
+} from '../models/character.model';
 import { StarWarsService } from '../star-wars.service';
 
 @Component({
@@ -32,22 +35,11 @@ export class CharacterListComponent implements OnInit, OnDestroy {
       .fetchPeople()
       .subscribe((charactersResponse) => {
         this.charactersResponse = charactersResponse;
-        this.charactersTableData =
-          this.mapCharactersTableData(charactersResponse);
+        this.charactersTableData = new CharactersTableData(
+          charactersResponse.characters
+        );
         this.changeDetectorRef.markForCheck();
       });
-  }
-
-  private mapCharactersTableData(
-    charactersResponse: CharactersResponse
-  ): TableData {
-    let charactersTableData: TableData = {
-      columns: [{ accessor: 'name', label: 'Name' }],
-      rows: charactersResponse.characters.map((character) => {
-        return { name: character.name };
-      }),
-    };
-    return charactersTableData;
   }
 
   ngOnDestroy() {
