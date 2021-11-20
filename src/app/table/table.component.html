@@ -6,6 +6,7 @@
   <tbody>
     <tr *ngFor="let row of data?.rows">
       <td *ngFor="let column of data?.columns">{{ row[column.accessor] }}</td>
+      <td><button>Details</button></td>
     </tr>
   </tbody>
 </table>

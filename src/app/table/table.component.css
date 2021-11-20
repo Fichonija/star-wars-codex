@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+}
+
+th {
+  padding: 1em;
+  text-align: left;
+}
+
+td {
+  padding: 0 1em;
+}
+
+td button {
+  float: right;
+}
