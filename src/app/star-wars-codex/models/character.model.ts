@@ -1,6 +1,6 @@
 import { TableColumn, TableData } from 'src/app/table/table-data.model';
 
-export interface Character {
+export interface ICharacter {
   name: string;
   birthYear: string;
   gender: string;
@@ -17,12 +17,58 @@ export interface Character {
   vehicleUrls: string[];
 }
 
-export interface CharactersResponse {
-  currentRecordCount: number;
+export interface ICharactersResponse {
+  recordCount: number;
   totalRecordCount: number;
+  currentPageNumber: number;
   nextPageUrl: string;
   previousPageUrl: string;
-  characters: Character[];
+  characters: ICharacter[];
+}
+
+export class CharactersResponse implements ICharactersResponse {
+  recordCount: number;
+  totalRecordCount: number;
+  currentPageNumber: number;
+  nextPageUrl: string;
+  previousPageUrl: string;
+  characters: ICharacter[];
+
+  constructor(charactersResponseData: any) {
+    this.recordCount = charactersResponseData.results.length;
+    this.totalRecordCount = charactersResponseData.count;
+    this.nextPageUrl = charactersResponseData.next;
+    this.previousPageUrl = charactersResponseData.previous;
+    this.characters = charactersResponseData.results.map((characterData: any) =>
+      this.mapCharacter(characterData)
+    );
+
+    if (this.previousPageUrl === null) {
+      this.currentPageNumber = 1;
+    } else {
+      let previousPageUrlNumber = this.previousPageUrl.split('page=')[1];
+      this.currentPageNumber = +previousPageUrlNumber;
+    }
+  }
+
+  private mapCharacter(characterData: any): ICharacter {
+    return {
+      name: characterData.name,
+      birthYear: characterData.birth_year,
+      gender: characterData.gender,
+      hairColor: characterData.hair_color,
+      skinColor: characterData.skin_color,
+      eyeColor: characterData.eye_color,
+      height: characterData.height,
+      weight: characterData.weight,
+      url: characterData.url,
+      homeworldUrl: characterData.homeworld,
+      filmUrls: characterData.films,
+      specieUrls: characterData.species,
+      starshipUrls: characterData.starships,
+      vehicleUrls: characterData.vehicles,
+    };
+  }
 }
 
 export class CharactersTableData implements TableData {
@@ -37,7 +83,7 @@ export class CharactersTableData implements TableData {
     gender: string;
   }[];
 
-  constructor(characters: Character[]) {
+  constructor(characters: ICharacter[]) {
     this.rows = characters.map((character) => {
       return {
         name: character.name,
