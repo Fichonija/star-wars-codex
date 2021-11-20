@@ -10,21 +10,17 @@ import { Character, CharactersResponse } from './models/character.model';
 export class StarWarsService {
   private swapiBaseUrl = 'https://swapi.dev/api/';
 
-  public charactersResponse$: Observable<CharactersResponse> = new Observable();
-
   constructor(private http: HttpClient) {}
 
-  public fetchPeople(page?: number): void {
+  public fetchPeople(page?: number): Observable<CharactersResponse> {
     const pagingQuery = page ? `?&page=${page}` : '';
-    this.charactersResponse$ = this.http
-      .get(`${this.swapiBaseUrl}people${pagingQuery}`)
-      .pipe(
-        map((response: any) => this.mapCharactersResponseData(response)),
-        catchError(this.handleError)
-      );
+    return this.http.get(`${this.swapiBaseUrl}people${pagingQuery}`).pipe(
+      map((response: any) => this.mapCharactersResponse(response)),
+      catchError(this.handleError)
+    );
   }
 
-  private mapCharactersResponseData(
+  private mapCharactersResponse(
     charactersResponseData: any
   ): CharactersResponse {
     let characterResponse: CharactersResponse = {
@@ -33,14 +29,14 @@ export class StarWarsService {
       nextPageUrl: charactersResponseData.next,
       previousPageUrl: charactersResponseData.previous,
       characters: charactersResponseData.results.map((characterData: any) =>
-        this.mapCharacterData(characterData)
+        this.mapCharacter(characterData)
       ),
     };
 
     return characterResponse;
   }
 
-  private mapCharacterData(characterData: any): Character {
+  private mapCharacter(characterData: any): Character {
     return {
       name: characterData.name,
       birthYear: characterData.birth_year,
