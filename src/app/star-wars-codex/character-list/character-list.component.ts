@@ -10,11 +10,11 @@ import {
   PageSection,
   PaginationData,
   TableData,
-} from 'src/app/table/table-data.model';
+} from 'src/app/models/table-data.model';
 import {
   ICharactersResponse,
   CharactersTableData,
-} from '../models/character.model';
+} from '../../models/character.model';
 import { StarWarsService } from '../star-wars.service';
 
 @Component({

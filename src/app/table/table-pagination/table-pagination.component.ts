@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { PaginationData } from '../table-data.model';
+import { PaginationData } from '../../models/table-data.model';
 
 @Component({
   selector: 'app-table-pagination',

@@ -1,4 +1,4 @@
-import { TableColumn, TableData } from 'src/app/table/table-data.model';
+import { TableColumn, TableData } from 'src/app/models/table-data.model';
 
 export interface ICharacter {
   name: string;

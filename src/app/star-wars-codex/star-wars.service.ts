@@ -6,7 +6,7 @@ import {
   CharactersResponse,
   ICharacter,
   ICharactersResponse,
-} from './models/character.model';
+} from '../models/character.model';
 
 @Injectable({
   providedIn: 'root',
