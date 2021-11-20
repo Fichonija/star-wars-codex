@@ -1,6 +1,14 @@
 <div id="pagination">
-  <button [disabled]="paginationData.currentPageSection === 1">⏮️ First</button>
-  <button [disabled]="paginationData.currentPageSection === 1">
+  <button
+    [disabled]="paginationData.currentPageSection === 1"
+    (click)="onFirstPageClicked()"
+  >
+    ⏮️ First
+  </button>
+  <button
+    [disabled]="paginationData.currentPageSection === 1"
+    (click)="onPreviousPageClicked()"
+  >
     ⬅️ Previous
   </button>
   <button

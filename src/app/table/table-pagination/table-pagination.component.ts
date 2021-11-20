@@ -22,6 +22,14 @@ export class TablePaginationComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  public onFirstPageClicked() {
+    this.getPage.emit(1);
+  }
+
+  public onPreviousPageClicked() {
+    this.getPage.emit(--this.paginationData.currentPageNumber);
+  }
+
   public onNextPageClicked() {
     this.getPage.emit(++this.paginationData.currentPageNumber);
   }
