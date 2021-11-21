@@ -32,5 +32,14 @@
     >
       Next ➡️
     </button>
+    <button
+      [disabled]="
+        paginationData.currentPagingSection === 3 ||
+        paginationData.currentPagingSection === 4
+      "
+      (click)="onLastPageClicked()"
+    >
+      Last ⏭️
+    </button>
   </div>
 </div>

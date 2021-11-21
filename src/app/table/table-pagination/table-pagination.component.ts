@@ -51,4 +51,8 @@ export class TablePaginationComponent implements OnInit {
   public onNextPageClicked() {
     this.getPage.emit(this.paginationData.currentPageNumber + 1);
   }
+
+  public onLastPageClicked() {
+    this.getPage.emit(this.paginationData.numberOfPages);
+  }
 }
