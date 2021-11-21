@@ -1,11 +1,18 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, Subject, throwError } from 'rxjs';
+import {
+  catchError,
+  forkJoin,
+  map,
+  Observable,
+  Subject,
+  throwError,
+} from 'rxjs';
 
 import {
   CharactersResponse,
   ICharactersResponse,
-  ICharacter,
+  Character,
 } from '../models/character.model';
 
 @Injectable({
@@ -19,8 +26,8 @@ export class StarWarsService {
   public charactersResponseObservable: Observable<ICharactersResponse> =
     this.charactersResponseSubject.asObservable();
 
-  private characterSubject: Subject<ICharacter> = new Subject<ICharacter>();
-  public characterObservable: Observable<ICharacter> =
+  private characterSubject: Subject<Character> = new Subject<Character>();
+  public characterObservable: Observable<Character> =
     this.characterSubject.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -48,10 +55,29 @@ export class StarWarsService {
     this.http
       .get(`${this.swapiBaseUrl}people/${id}`)
       .pipe(
-        map((response: any) => CharactersResponse.mapCharacter(response)),
+        map((response: any) => new Character(response)),
         catchError(this.handleError)
       )
-      .subscribe((character) => this.characterSubject.next(character));
+      .subscribe((character) =>
+        this.fetchSingleCharacterAdditionals(character)
+      );
+  }
+
+  private fetchSingleCharacterAdditionals(character: Character) {
+    let fetchObservables: Observable<any>[] = [];
+    fetchObservables.push(this.http.get(character.homeworldUrl));
+    for (const filmUrl of character.filmUrls) {
+      fetchObservables.push(this.http.get(filmUrl));
+    }
+
+    forkJoin(fetchObservables).subscribe((responses: any[]) => {
+      character.homeworld = responses[0].name;
+      for (let i = 1; i < responses.length; i++) {
+        const film = responses[i];
+        character.films.push(film.title);
+      }
+      this.characterSubject.next(character);
+    });
   }
 
   private buildQueryParameters(page?: number, searchValue?: string): string {

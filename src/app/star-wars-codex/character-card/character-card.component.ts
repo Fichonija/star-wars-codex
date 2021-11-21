@@ -2,13 +2,12 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ICharacter } from 'src/app/models/character.model';
+import { Character } from 'src/app/models/character.model';
 import { StarWarsService } from '../star-wars.service';
 
 @Component({
@@ -21,7 +20,7 @@ export class CharacterCardComponent implements OnInit, OnDestroy {
   private characterId: string;
   private character$: Subscription;
 
-  @Input() character: ICharacter;
+  public character: Character;
 
   public isLoading: boolean = true;
 
