@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CharacterCardComponent } from './star-wars-codex/character-card/character-card.component';
-import { CharacterListComponent } from './star-wars-codex/character-list/character-list.component';
+import { CharacterListComponent } from './star-wars-codex/list/character-list/character-list.component';
 import { FilmListComponent } from './star-wars-codex/list/film-list/film-list.component';
 
 import { StarWarsCodexComponent } from './star-wars-codex/star-wars-codex.component';

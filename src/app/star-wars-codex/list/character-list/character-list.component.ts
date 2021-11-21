@@ -16,8 +16,8 @@ import { getCharactersCompareFunction } from 'src/app/utility/sort-comparers';
 import {
   ICharactersResponse,
   CharactersTableData,
-} from '../../models/character.model';
-import { StarWarsService } from '../star-wars.service';
+} from '../../../models/character.model';
+import { StarWarsService } from '../../star-wars.service';
 
 @Component({
   selector: 'app-character-list',

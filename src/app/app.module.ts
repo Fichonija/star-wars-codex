@@ -9,7 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StarWarsCodexComponent } from './star-wars-codex/star-wars-codex.component';
 import { HeaderComponent } from './header/header.component';
-import { CharacterListComponent } from './star-wars-codex/character-list/character-list.component';
+import { CharacterListComponent } from './star-wars-codex/list/character-list/character-list.component';
 import { TableComponent } from './table/table.component';
 import { TablePaginationComponent } from './table/table-pagination/table-pagination.component';
 import { TableSearchComponent } from './table/table-search/table-search.component';
