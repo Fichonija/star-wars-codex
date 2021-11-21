@@ -11,7 +11,7 @@ import {
   providedIn: 'root',
 })
 export class StarWarsService {
-  private swapiBaseUrl = 'https://swapi.dev/api/';
+  private swapiBaseUrl = 'https://swapi.py4e.com/api/';
 
   private charactersResponseSubject: Subject<ICharactersResponse> =
     new Subject<ICharactersResponse>();

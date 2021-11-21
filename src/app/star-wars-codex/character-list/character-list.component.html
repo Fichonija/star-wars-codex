@@ -1,8 +1,10 @@
-<div *ngIf="charactersResponse !== undefined; else loading">
-  <app-table
-    [tableParameters]="charactersTableParameters"
-    (getPagedData)="onGetPagedData($event)"
-    (getFilteredData)="onGetFilteredData($event)"
-  ></app-table>
-</div>
-<ng-template #loading>Loading characters...</ng-template>
+<app-table
+  *ngIf="charactersTableParameters; else initialLoading"
+  [showLoading]="isLoading"
+  tableHeading="Star Wars Characters"
+  [tableParameters]="charactersTableParameters"
+  (getPagedData)="onGetPagedData($event)"
+  (getFilteredData)="onGetFilteredData($event)"
+  (sorted)="onTableSorted($event)"
+></app-table>
+<ng-template #initialLoading>Please wait...</ng-template>

@@ -22,10 +22,14 @@ export interface ISortingData {
   direction: SortDirection;
 }
 
+export interface ISearchingData {
+  attribute: string;
+  value: string;
+}
+
 export interface ITableParameters {
-  heading: string;
   data: ITableData;
-  searchAttribute: string;
+  searchData: ISearchingData;
   paginationData: IPaginationData;
   sortingData: ISortingData;
 }

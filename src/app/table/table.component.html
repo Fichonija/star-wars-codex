@@ -1,11 +1,11 @@
 <div id="table-header">
-  <h1>{{ tableParameters.heading }}</h1>
+  <h1>{{ tableHeading }}</h1>
   <app-table-search
-    [searchAttribute]="tableParameters.searchAttribute"
+    [searchData]="tableParameters?.searchData"
     (searchRecordsBy)="onSearchRecordsBy($event)"
   ></app-table-search>
 </div>
-<table>
+<table *ngIf="!showLoading && tableParameters; else loading">
   <thead>
     <th
       *ngFor="let column of tableParameters.data.columns"
@@ -26,7 +26,8 @@
   </tbody>
 </table>
 <app-table-pagination
-  *ngIf="tableParameters.paginationData !== undefined"
+  *ngIf="!showLoading && tableParameters"
   [paginationData]="tableParameters.paginationData"
   (getPage)="onGetPage($event)"
 ></app-table-pagination>
+<ng-template #loading>Loading characters... please wait</ng-template>

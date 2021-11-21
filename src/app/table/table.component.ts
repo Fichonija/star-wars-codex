@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import {
+  ISortingData,
   ITableColumn,
   ITableParameters,
   SortDirection,
@@ -20,14 +21,21 @@ import { getCharactersCompareFunction } from '../utility/sort-comparers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit {
+  @Input() showLoading: boolean;
+  @Input() tableHeading: string;
   @Input() tableParameters: ITableParameters;
 
   @Output() getPagedData: EventEmitter<number> = new EventEmitter();
   @Output() getFilteredData: EventEmitter<string> = new EventEmitter();
+  @Output() sorted: EventEmitter<ISortingData> = new EventEmitter();
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.tableParameters.sortingData?.attribute !== '') {
+      this.sortRows();
+    }
+  }
 
   public getFullColumnLabel(column: ITableColumn): string {
     let sortingLabel = '';
@@ -64,6 +72,7 @@ export class TableComponent implements OnInit {
       this.updateCurrentSortParameters(sortAttribute);
       this.updateColumnsSortParameters();
       this.sortRows();
+      this.sorted.emit(this.tableParameters.sortingData);
     }
   }
 
