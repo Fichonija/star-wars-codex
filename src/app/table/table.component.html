@@ -7,8 +7,13 @@
 </div>
 <table>
   <thead>
-    <th *ngFor="let column of tableParameters.data.columns">
-      {{ column.label }}
+    <th
+      *ngFor="let column of tableParameters.data.columns"
+      [attr.data-sortable]="column.enableSort"
+      [attr.data-sort-attribute]="column.accessor"
+      (click)="onTableHeaderClicked($event)"
+    >
+      {{ getFullColumnLabel(column) }}
     </th>
   </thead>
   <tbody>

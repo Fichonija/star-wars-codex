@@ -18,6 +18,10 @@ th {
   text-align: left;
 }
 
+th[data-sortable="true"] {
+  cursor: pointer;
+}
+
 td {
   padding: 0 1em;
 }
