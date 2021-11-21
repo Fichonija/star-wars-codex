@@ -1,3 +1,11 @@
 .favourite-character {
   margin-top: 2em;
 }
+
+li {
+  cursor: pointer;
+}
+
+li:hover {
+  color: var(--sw-purple);
+}

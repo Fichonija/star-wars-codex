@@ -1,0 +1,7 @@
+li {
+  cursor: pointer;
+}
+
+li:hover {
+  color: var(--sw-purple);
+}
