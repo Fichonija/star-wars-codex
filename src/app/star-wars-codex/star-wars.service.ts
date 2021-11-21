@@ -30,6 +30,8 @@ export class StarWarsService {
   public characterObservable: Observable<Character> =
     this.characterSubject.asObservable();
 
+  private favouriteCharacters: Character[] = [];
+
   constructor(private http: HttpClient) {}
 
   public fetchCharacters(page?: number, searchValue?: string): void {
@@ -49,6 +51,15 @@ export class StarWarsService {
       .subscribe((charactersResponse) =>
         this.charactersResponseSubject.next(charactersResponse)
       );
+  }
+
+  private buildQueryParameters(page?: number, searchValue?: string): string {
+    let queryParameters = `?page=${page ? page : 1}`;
+    if (searchValue) {
+      queryParameters += `&search=${searchValue}`;
+    }
+
+    return queryParameters;
   }
 
   public fetchSingleCharacter(id: string): void {
@@ -80,13 +91,20 @@ export class StarWarsService {
     });
   }
 
-  private buildQueryParameters(page?: number, searchValue?: string): string {
-    let queryParameters = `?page=${page ? page : 1}`;
-    if (searchValue) {
-      queryParameters += `&search=${searchValue}`;
+  public addFavouriteCharacter(character: Character) {
+    if (
+      this.favouriteCharacters.findIndex(
+        (favouriteCharacter) => favouriteCharacter.id === character.id
+      ) === -1
+    ) {
+      this.favouriteCharacters.push(character);
     }
+  }
 
-    return queryParameters;
+  public getFavouriteCharacter(characterId: string): Character | undefined {
+    return this.favouriteCharacters.find(
+      (favouriteCharacter) => favouriteCharacter.id === characterId
+    );
   }
 
   private handleError(error: HttpErrorResponse) {

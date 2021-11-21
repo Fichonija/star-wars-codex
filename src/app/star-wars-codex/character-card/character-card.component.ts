@@ -23,6 +23,7 @@ export class CharacterCardComponent implements OnInit, OnDestroy {
   public character: Character;
 
   public isLoading: boolean = true;
+  public isFavourite: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +40,25 @@ export class CharacterCardComponent implements OnInit, OnDestroy {
         this.changeDetectorRef.markForCheck();
       }
     );
-    this.starWarsService.fetchSingleCharacter(this.characterId);
+
+    this.getCharacter();
+  }
+
+  private getCharacter() {
+    let favouriteCharacter: Character | undefined =
+      this.starWarsService.getFavouriteCharacter(this.characterId);
+    if (favouriteCharacter !== undefined) {
+      this.character = favouriteCharacter;
+      this.isFavourite = true;
+      this.isLoading = false;
+    } else {
+      this.starWarsService.fetchSingleCharacter(this.characterId);
+    }
+  }
+
+  markAsFavourite(): void {
+    this.starWarsService.addFavouriteCharacter(this.character);
+    this.isFavourite = true;
   }
 
   ngOnDestroy() {

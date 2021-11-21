@@ -10,4 +10,14 @@
     <li *ngFor="let film of character.films">{{ film }}</li>
   </ul>
 </div>
+<button
+  *ngIf="!isFavourite && !isLoading"
+  class="favourite-character"
+  (click)="markAsFavourite()"
+>
+  Mark as favourite
+</button>
+<p *ngIf="isFavourite && !isLoading" class="favourite-character">
+  This is a favourite character!
+</p>
 <ng-template #loading>Loading character... Please wait</ng-template>
