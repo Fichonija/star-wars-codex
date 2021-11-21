@@ -25,7 +25,7 @@ import { StarWarsService } from '../star-wars.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CharacterListComponent implements OnInit, OnDestroy {
-  private characterResponse$: Subscription;
+  private charactersResponse$: Subscription;
 
   public charactersResponse: ICharactersResponse;
   public charactersTableParameters: ITableParameters;
@@ -37,7 +37,7 @@ export class CharacterListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.characterResponse$ =
+    this.charactersResponse$ =
       this.starWarsService.charactersResponseObservable.subscribe(
         (charactersResponse) => {
           this.charactersResponse = charactersResponse;
@@ -55,7 +55,10 @@ export class CharacterListComponent implements OnInit, OnDestroy {
   }
 
   onGetPagedData(pageNumber: number) {
-    this.starWarsService.fetchCharacters(pageNumber);
+    let searchValue = this.charactersResponse.currentFilter
+      ? this.charactersResponse.currentFilter
+      : undefined;
+    this.starWarsService.fetchCharacters(pageNumber, searchValue);
   }
 
   onGetFilteredData(value: string) {
@@ -63,6 +66,6 @@ export class CharacterListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.characterResponse$?.unsubscribe();
+    this.charactersResponse$?.unsubscribe();
   }
 }

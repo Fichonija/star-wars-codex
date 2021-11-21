@@ -21,11 +21,17 @@ export class StarWarsService {
   constructor(private http: HttpClient) {}
 
   public fetchCharacters(page?: number, searchValue?: string): void {
-    let queryParameters = this.getQueryParameters(page, searchValue);
+    let queryParameters = this.buildQueryParameters(page, searchValue);
     this.http
       .get(`${this.swapiBaseUrl}people${queryParameters}`)
       .pipe(
-        map((response: any) => new CharactersResponse(response)),
+        map((response: any) => {
+          let charactersResponse = new CharactersResponse(response);
+          charactersResponse.currentPageNumber = page ? page : 1;
+          charactersResponse.currentFilter = searchValue ? searchValue : null;
+
+          return charactersResponse;
+        }),
         catchError(this.handleError)
       )
       .subscribe((charactersResponse) =>
@@ -33,16 +39,21 @@ export class StarWarsService {
       );
   }
 
-  private getQueryParameters(page?: number, searchValue?: string): string {
+  private buildQueryParameters(page?: number, searchValue?: string): string {
     let queryParameters = '';
     if (searchValue) {
-      queryParameters += `search=${searchValue}`;
-    } else if (page) {
-      queryParameters += `page=${page}`;
+      queryParameters += `search=${searchValue}&`;
+    }
+    if (page) {
+      queryParameters += `page=${page}&`;
     }
 
     if (queryParameters !== '') {
       queryParameters = '?' + queryParameters;
+      queryParameters = queryParameters.substring(
+        0,
+        queryParameters.lastIndexOf('&')
+      );
     }
     return queryParameters;
   }

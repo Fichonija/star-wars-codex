@@ -21,8 +21,9 @@ export interface ICharactersResponse {
   recordCount: number;
   totalRecordCount: number;
   currentPageNumber: number;
-  nextPageUrl: string;
-  previousPageUrl: string;
+  previousPageUrl: string | null;
+  nextPageUrl: string | null;
+  currentFilter: string | null;
   characters: ICharacter[];
 }
 
@@ -30,8 +31,9 @@ export class CharactersResponse implements ICharactersResponse {
   recordCount: number;
   totalRecordCount: number;
   currentPageNumber: number;
-  nextPageUrl: string;
-  previousPageUrl: string;
+  previousPageUrl: string | null;
+  nextPageUrl: string | null;
+  currentFilter: string | null;
   characters: ICharacter[];
 
   constructor(charactersResponseData: any) {
@@ -42,15 +44,6 @@ export class CharactersResponse implements ICharactersResponse {
     this.characters = charactersResponseData.results.map((characterData: any) =>
       this.mapCharacter(characterData)
     );
-
-    if (this.previousPageUrl === null) {
-      this.currentPageNumber = 1;
-    } else {
-      let previousPageUrlNumber = Number(
-        this.previousPageUrl.split('page=')[1]
-      );
-      this.currentPageNumber = ++previousPageUrlNumber;
-    }
   }
 
   private mapCharacter(characterData: any): ICharacter {
