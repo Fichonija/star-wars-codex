@@ -13,19 +13,28 @@
   </div>
   <div id="pagination-actions">
     <button
-      [disabled]="paginationData.currentPageSection === 1"
+      [disabled]="
+        paginationData.currentPagingSection === 1 ||
+        paginationData.currentPagingSection === 4
+      "
       (click)="onFirstPageClicked()"
     >
       ⏮️ First
     </button>
     <button
-      [disabled]="paginationData.currentPageSection === 1"
+      [disabled]="
+        paginationData.currentPagingSection === 1 ||
+        paginationData.currentPagingSection === 4
+      "
       (click)="onPreviousPageClicked()"
     >
       ⬅️ Previous
     </button>
     <button
-      [disabled]="paginationData.currentPageSection === 3"
+      [disabled]="
+        paginationData.currentPagingSection === 3 ||
+        paginationData.currentPagingSection === 4
+      "
       (click)="onNextPageClicked()"
     >
       Next ➡️

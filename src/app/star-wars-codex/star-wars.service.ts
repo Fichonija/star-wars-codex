@@ -40,21 +40,11 @@ export class StarWarsService {
   }
 
   private buildQueryParameters(page?: number, searchValue?: string): string {
-    let queryParameters = '';
+    let queryParameters = `?page=${page ? page : 1}`;
     if (searchValue) {
-      queryParameters += `search=${searchValue}&`;
-    }
-    if (page) {
-      queryParameters += `page=${page}&`;
+      queryParameters += `&search=${searchValue}`;
     }
 
-    if (queryParameters !== '') {
-      queryParameters = '?' + queryParameters;
-      queryParameters = queryParameters.substring(
-        0,
-        queryParameters.lastIndexOf('&')
-      );
-    }
     return queryParameters;
   }
 

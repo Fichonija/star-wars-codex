@@ -17,36 +17,49 @@ export interface ITableParameters {
   paginationData: IPaginationData;
 }
 
-export enum PageSection {
+export enum PagingSection {
   FirstPage = 1,
   Middle,
   LastPage,
+  OnlyPage,
 }
 
 export interface IPaginationData {
   currentPageNumber: number;
-  currentPageSection: PageSection;
+  currentPagingSection: PagingSection;
   currentRecordCount: number;
   totalRecordCount: number;
 }
 
 export class CharactersPaginationData implements IPaginationData {
   currentPageNumber: number;
-  currentPageSection: PageSection;
+  currentPagingSection: PagingSection;
   currentRecordCount: number;
   totalRecordCount: number;
 
   constructor(charactersResponse: ICharactersResponse) {
     this.currentPageNumber = charactersResponse.currentPageNumber;
-    if (charactersResponse.previousPageUrl === null) {
-      this.currentPageSection = PageSection.FirstPage;
-    } else if (charactersResponse.nextPageUrl === null) {
-      this.currentPageSection = PageSection.LastPage;
-    } else {
-      this.currentPageSection = PageSection.Middle;
-    }
+    this.currentPagingSection =
+      this.getCurrentPagingSection(charactersResponse);
 
     this.currentRecordCount = charactersResponse.recordCount;
     this.totalRecordCount = charactersResponse.totalRecordCount;
+  }
+
+  private getCurrentPagingSection(
+    charactersResponse: ICharactersResponse
+  ): PagingSection {
+    if (
+      charactersResponse.previousPageUrl === null &&
+      charactersResponse.nextPageUrl === null
+    ) {
+      return PagingSection.OnlyPage;
+    } else if (charactersResponse.previousPageUrl === null) {
+      return PagingSection.FirstPage;
+    } else if (charactersResponse.nextPageUrl === null) {
+      return PagingSection.LastPage;
+    } else {
+      return PagingSection.Middle;
+    }
   }
 }
