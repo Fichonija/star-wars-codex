@@ -40,7 +40,7 @@ export class Character {
   vehicleUrls: string[];
 
   homeworld: string = '';
-  films: string[] = [];
+  films: { id: string; title: string }[] = [];
 
   constructor(characterData: any) {
     this.id = characterData.url.split('people/')[1];

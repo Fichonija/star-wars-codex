@@ -114,8 +114,8 @@ export class StarWarsService {
       .subscribe((responses: any[]) => {
         character.homeworld = responses[0].name;
         for (let i = 1; i < responses.length; i++) {
-          const film = responses[i];
-          character.films.push(film.title);
+          const film = new Film(responses[i]);
+          character.films.push({ id: film.id, title: film.title });
         }
         this.characterSubject.next(character);
       });
@@ -157,8 +157,8 @@ export class StarWarsService {
       .pipe(catchError(this.handleError))
       .subscribe((responses: any[]) => {
         for (let i = 0; i < responses.length; i++) {
-          const character = responses[i];
-          film.characters.push(character.name);
+          const character = new Character(responses[i]);
+          film.characters.push({ id: character.id, name: character.name });
         }
         this.filmSubject.next(film);
       });

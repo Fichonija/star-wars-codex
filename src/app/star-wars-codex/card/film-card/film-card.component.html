@@ -6,7 +6,12 @@
   <p>{{ "Release Date: " + film.releaseDate }}</p>
   <p>List of characters:</p>
   <ul>
-    <li *ngFor="let character of film.characters">{{ character }}</li>
+    <li
+      *ngFor="let character of film.characters"
+      [routerLink]="['/characters', character.id]"
+    >
+      {{ character.name }}
+    </li>
   </ul>
 </div>
 <ng-template #loading>Loading film... Please wait</ng-template>

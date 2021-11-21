@@ -7,7 +7,9 @@
   <p>{{ "Homeworld: " + character.homeworld }}</p>
   <p>List of films:</p>
   <ul>
-    <li *ngFor="let film of character.films">{{ film }}</li>
+    <li *ngFor="let film of character.films" [routerLink]="['/films', film.id]">
+      {{ film.title }}
+    </li>
   </ul>
 </div>
 <button

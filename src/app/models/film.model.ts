@@ -31,7 +31,7 @@ export class Film implements IFilm {
   vehicleUrls: string[];
   specieUrls: string[];
 
-  characters: string[] = [];
+  characters: { id: string; name: string }[] = [];
 
   constructor(filmData: any) {
     this.id = filmData.url.split('films/')[1];
