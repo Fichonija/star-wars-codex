@@ -6,7 +6,7 @@
 }
 
 #table-header h1 {
-  margin: 0;
+  margin: 0 1em 0 0;
 }
 
 table {
@@ -28,4 +28,19 @@ td {
 
 td button {
   float: right;
+}
+
+@media only screen and (max-width: 768px) {
+  #table-header {
+    flex-direction: column;
+  }
+
+  #table-header h1 {
+    margin: 0;
+    width: 100%;
+  }
+
+  #table-header app-table-search {
+    width: 100%;
+  }
 }

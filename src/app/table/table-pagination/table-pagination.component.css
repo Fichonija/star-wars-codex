@@ -4,7 +4,7 @@
   margin-top: 1em;
 }
 
-#pagination-info {
+#pagination-info p {
   margin: 0;
 }
 
@@ -16,4 +16,20 @@
 
 button {
   margin-left: 1em;
+}
+
+@media only screen and (max-width: 650px) {
+  #pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #pagination-actions {
+    padding: 0;
+    margin-top: 1em;
+  }
+
+  #pagination-actions button:first-child {
+    margin-left: 0;
+  }
 }

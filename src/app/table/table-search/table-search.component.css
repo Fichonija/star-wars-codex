@@ -1,3 +1,19 @@
 label {
   margin-right: 1em;
 }
+
+@media only screen and (max-width: 768px) {
+  div {
+    display: flex;
+    margin-top: 1em;
+  }
+
+  label {
+    min-width: fit-content;
+  }
+
+  input {
+    flex: auto;
+    max-width: 300px;
+  }
+}

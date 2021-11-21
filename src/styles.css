@@ -29,3 +29,16 @@ button:hover:enabled {
 button:hover:disabled {
   cursor: initial;
 }
+
+@media only screen and (max-width: 1050px) {
+  button {
+    height: fit-content;
+    padding: 0.2em 0.4em;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: 12px;
+  }
+}
