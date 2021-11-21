@@ -14,7 +14,7 @@ import {
   SortDirection,
 } from 'src/app/models/table-data.model';
 import { getFilmsCompareFunction } from 'src/app/utility/sort-comparers';
-import { StarWarsService } from '../star-wars.service';
+import { StarWarsService } from '../../star-wars.service';
 
 @Component({
   selector: 'app-films-list',

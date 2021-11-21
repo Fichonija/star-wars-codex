@@ -2,6 +2,7 @@
   *ngIf="charactersTableParameters; else initialLoading"
   [showLoading]="isLoading"
   tableHeading="Star Wars Characters"
+  loadingText="Loading characters... please wait"
   [tableParameters]="charactersTableParameters"
   (getPagedData)="onGetPagedData($event)"
   (getFilteredData)="onGetFilteredData($event)"

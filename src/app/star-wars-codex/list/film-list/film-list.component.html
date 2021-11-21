@@ -2,6 +2,7 @@
   *ngIf="filmsTableParameters; else initialLoading"
   [showLoading]="isLoading"
   tableHeading="Star Wars Films"
+  loadingText="Loading films... Please wait"
   [tableParameters]="filmsTableParameters"
   (getPagedData)="onGetPagedData($event)"
   (getFilteredData)="onGetFilteredData($event)"
