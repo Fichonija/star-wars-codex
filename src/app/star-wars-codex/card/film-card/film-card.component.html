@@ -1,0 +1,12 @@
+<div *ngIf="!isLoading; else loading">
+  <p>{{ "Title: " + film.title }}</p>
+  <p>{{ "Episode: " + film.episodeId }}</p>
+  <p>{{ "Director: " + film.director }}</p>
+  <p>{{ "Producer: " + film.producer }}</p>
+  <p>{{ "Release Date: " + film.releaseDate }}</p>
+  <p>List of characters:</p>
+  <ul>
+    <li *ngFor="let character of film.characters">{{ character }}</li>
+  </ul>
+</div>
+<ng-template #loading>Loading film... Please wait</ng-template>

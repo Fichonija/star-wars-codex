@@ -14,7 +14,7 @@ import {
   ICharactersResponse,
   Character,
 } from '../models/character.model';
-import { FilmsResponse, IFilmsResponse } from '../models/film.model';
+import { Film, FilmsResponse, IFilmsResponse } from '../models/film.model';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +37,9 @@ export class StarWarsService {
     new Subject<IFilmsResponse>();
   public filmsResponseObservable: Observable<IFilmsResponse> =
     this.filmsResponseSubject.asObservable();
+
+  private filmSubject: Subject<Film> = new Subject<Film>();
+  public filmObservable: Observable<Film> = this.filmSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -106,14 +109,16 @@ export class StarWarsService {
       fetchObservables.push(this.http.get(filmUrl));
     }
 
-    forkJoin(fetchObservables).subscribe((responses: any[]) => {
-      character.homeworld = responses[0].name;
-      for (let i = 1; i < responses.length; i++) {
-        const film = responses[i];
-        character.films.push(film.title);
-      }
-      this.characterSubject.next(character);
-    });
+    forkJoin(fetchObservables)
+      .pipe(catchError(this.handleError))
+      .subscribe((responses: any[]) => {
+        character.homeworld = responses[0].name;
+        for (let i = 1; i < responses.length; i++) {
+          const film = responses[i];
+          character.films.push(film.title);
+        }
+        this.characterSubject.next(character);
+      });
   }
 
   public addFavouriteCharacter(character: Character) {
@@ -130,6 +135,33 @@ export class StarWarsService {
     return this.favouriteCharacters.find(
       (favouriteCharacter) => favouriteCharacter.id === characterId
     );
+  }
+
+  public fetchSingleFilm(id: string): void {
+    this.http
+      .get(`${this.swapiBaseUrl}films/${id}`)
+      .pipe(
+        map((response: any) => new Film(response)),
+        catchError(this.handleError)
+      )
+      .subscribe((film) => this.fetchSingleFilmAdditionals(film));
+  }
+
+  private fetchSingleFilmAdditionals(film: Film) {
+    let fetchObservables: Observable<any>[] = [];
+    for (const characterUrl of film.characterUrls) {
+      fetchObservables.push(this.http.get(characterUrl));
+    }
+
+    forkJoin(fetchObservables)
+      .pipe(catchError(this.handleError))
+      .subscribe((responses: any[]) => {
+        for (let i = 0; i < responses.length; i++) {
+          const character = responses[i];
+          film.characters.push(character.name);
+        }
+        this.filmSubject.next(film);
+      });
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -15,6 +15,7 @@ import { TablePaginationComponent } from './table/table-pagination/table-paginat
 import { TableSearchComponent } from './table/table-search/table-search.component';
 import { CharacterCardComponent } from './star-wars-codex/card/character-card/character-card.component';
 import { FilmListComponent } from './star-wars-codex/list/film-list/film-list.component';
+import { FilmCardComponent } from './star-wars-codex/card/film-card/film-card.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FilmListComponent } from './star-wars-codex/list/film-list/film-list.co
     TableSearchComponent,
     CharacterCardComponent,
     FilmListComponent,
+    FilmCardComponent,
   ],
   imports: [
     BrowserModule,

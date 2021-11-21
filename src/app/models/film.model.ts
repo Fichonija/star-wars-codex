@@ -7,7 +7,7 @@ export interface IFilm {
   openingCrawl: string;
   director: string;
   producer: string;
-  releaseData: string;
+  releaseDate: string;
   url: string;
   characterUrls: string[];
   planetUrls: string[];
@@ -23,13 +23,15 @@ export class Film implements IFilm {
   openingCrawl: string;
   director: string;
   producer: string;
-  releaseData: string;
+  releaseDate: string;
   url: string;
   characterUrls: string[];
   planetUrls: string[];
   starshipUrls: string[];
   vehicleUrls: string[];
   specieUrls: string[];
+
+  characters: string[] = [];
 
   constructor(filmData: any) {
     this.id = filmData.url.split('/films')[1];
@@ -39,7 +41,7 @@ export class Film implements IFilm {
     this.openingCrawl = filmData.opening_crawl;
     this.director = filmData.director;
     this.producer = filmData.producer;
-    this.releaseData = filmData.release_date;
+    this.releaseDate = filmData.release_date;
     this.url = filmData.url;
     this.characterUrls = filmData.characters;
     this.planetUrls = filmData.planets;
@@ -94,7 +96,7 @@ export class FilmsTableData implements ITableData {
       currentSortDirection: SortDirection.None,
     },
     {
-      accessor: 'releaseData',
+      accessor: 'releaseDate',
       label: 'Release Date',
       enableSort: false,
       currentSortDirection: SortDirection.None,
@@ -104,7 +106,7 @@ export class FilmsTableData implements ITableData {
     id: string;
     title: string;
     director: string;
-    releaseData: string;
+    releaseDate: string;
   }[];
 
   constructor(films: IFilm[]) {
@@ -113,7 +115,7 @@ export class FilmsTableData implements ITableData {
         id: film.id,
         title: film.title,
         director: film.director,
-        releaseData: film.releaseData,
+        releaseDate: film.releaseDate,
       };
     });
   }
