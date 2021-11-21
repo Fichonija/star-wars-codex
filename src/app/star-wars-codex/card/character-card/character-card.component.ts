@@ -8,7 +8,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Character } from 'src/app/models/character.model';
-import { StarWarsService } from '../star-wars.service';
+import { StarWarsService } from '../../star-wars.service';
 
 @Component({
   selector: 'app-character-card',
