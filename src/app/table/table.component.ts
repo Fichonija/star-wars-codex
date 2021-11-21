@@ -22,11 +22,6 @@ import { getCharactersCompareFunction } from '../utility/sort-comparers';
 export class TableComponent implements OnInit {
   @Input() tableParameters: ITableParameters;
 
-  currentSortParameters: { attribute: string; direction: SortDirection } = {
-    attribute: '',
-    direction: SortDirection.None,
-  };
-
   @Output() getPagedData: EventEmitter<number> = new EventEmitter();
   @Output() getFilteredData: EventEmitter<string> = new EventEmitter();
 
@@ -73,23 +68,24 @@ export class TableComponent implements OnInit {
   }
 
   private updateCurrentSortParameters(sortAttribute: string): void {
-    if (this.currentSortParameters.attribute === '') {
-      this.currentSortParameters.attribute = sortAttribute;
-      this.currentSortParameters.direction = SortDirection.Ascending;
-    } else if (sortAttribute !== this.currentSortParameters.attribute) {
-      this.currentSortParameters.attribute = sortAttribute;
-      this.currentSortParameters.direction = SortDirection.Ascending;
+    if (this.tableParameters.sortingData.attribute === '') {
+      this.tableParameters.sortingData.attribute = sortAttribute;
+      this.tableParameters.sortingData.direction = SortDirection.Ascending;
+    } else if (sortAttribute !== this.tableParameters.sortingData.attribute) {
+      this.tableParameters.sortingData.attribute = sortAttribute;
+      this.tableParameters.sortingData.direction = SortDirection.Ascending;
     } else {
       let previousSortDirection: SortDirection =
-        this.currentSortParameters.direction;
-      this.currentSortParameters.direction = (previousSortDirection + 1) % 3;
+        this.tableParameters.sortingData.direction;
+      this.tableParameters.sortingData.direction =
+        (previousSortDirection + 1) % 3;
     }
   }
 
   private sortRows(): void {
     let compareFunction = getCharactersCompareFunction(
-      this.currentSortParameters.attribute,
-      this.currentSortParameters.direction
+      this.tableParameters.sortingData.attribute,
+      this.tableParameters.sortingData.direction
     );
     this.tableParameters.data.rows =
       this.tableParameters.data.rows.sort(compareFunction);
@@ -97,8 +93,9 @@ export class TableComponent implements OnInit {
 
   private updateColumnsSortParameters(): void {
     for (let column of this.tableParameters.data.columns) {
-      if (column.accessor === this.currentSortParameters.attribute) {
-        column.currentSortDirection = this.currentSortParameters.direction;
+      if (column.accessor === this.tableParameters.sortingData.attribute) {
+        column.currentSortDirection =
+          this.tableParameters.sortingData.direction;
       } else {
         column.currentSortDirection = SortDirection.None;
       }

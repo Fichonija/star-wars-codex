@@ -7,10 +7,9 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
-  ITableData,
-  IPaginationData,
   CharactersPaginationData,
   ITableParameters,
+  SortDirection,
 } from 'src/app/models/table-data.model';
 import {
   ICharactersResponse,
@@ -46,6 +45,10 @@ export class CharacterListComponent implements OnInit, OnDestroy {
             data: new CharactersTableData(charactersResponse.characters),
             searchAttribute: this.charactersSearchAttribute,
             paginationData: new CharactersPaginationData(charactersResponse),
+            sortingData: {
+              attribute: '',
+              direction: SortDirection.None,
+            },
           };
 
           this.changeDetectorRef.markForCheck();

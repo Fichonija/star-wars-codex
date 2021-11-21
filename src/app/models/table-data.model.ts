@@ -17,11 +17,17 @@ export interface ITableData {
   rows: any[];
 }
 
+export interface ISortingData {
+  attribute: string;
+  direction: SortDirection;
+}
+
 export interface ITableParameters {
   heading: string;
   data: ITableData;
   searchAttribute: string;
   paginationData: IPaginationData;
+  sortingData: ISortingData;
 }
 
 export enum PagingSection {
