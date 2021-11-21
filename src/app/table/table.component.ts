@@ -22,6 +22,7 @@ import {
 export class TableComponent implements OnInit {
   @Input() showLoading: boolean;
   @Input() tableHeading: string;
+  @Input() loadingText: string;
   @Input() tableParameters: ITableParameters;
 
   @Output() getPagedData: EventEmitter<number> = new EventEmitter();

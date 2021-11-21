@@ -32,4 +32,4 @@
   [paginationData]="tableParameters.paginationData"
   (getPage)="onGetPage($event)"
 ></app-table-pagination>
-<ng-template #loading>Loading characters... please wait</ng-template>
+<ng-template #loading>{{ loadingText }}</ng-template>
