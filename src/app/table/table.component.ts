@@ -57,6 +57,11 @@ export class TableComponent implements OnInit {
     return `${column.label}${' ' + sortingLabel}`;
   }
 
+  public onDetailsClicked(event: MouseEvent): void {
+    let buttonElement: HTMLButtonElement = event.target as HTMLButtonElement;
+    console.log(buttonElement.getAttribute('data-id'));
+  }
+
   public onTableHeaderClicked(event: MouseEvent): void {
     let tableHeaderElement: HTMLTableCellElement =
       event.target as HTMLTableCellElement;

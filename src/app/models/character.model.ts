@@ -5,6 +5,7 @@ import {
 } from 'src/app/models/table-data.model';
 
 export interface ICharacter {
+  id: string;
   name: string;
   birthYear: string;
   gender: string;
@@ -51,7 +52,8 @@ export class CharactersResponse implements ICharactersResponse {
   }
 
   private mapCharacter(characterData: any): ICharacter {
-    return {
+    let character: ICharacter = {
+      id: '',
       name: characterData.name,
       birthYear: characterData.birth_year,
       gender: characterData.gender,
@@ -67,6 +69,10 @@ export class CharactersResponse implements ICharactersResponse {
       starshipUrls: characterData.starships,
       vehicleUrls: characterData.vehicles,
     };
+    character.id = characterData.url.split('people/')[1];
+    character.id = character.id.substring(0, 1);
+
+    return character;
   }
 }
 
@@ -92,6 +98,7 @@ export class CharactersTableData implements ITableData {
     },
   ];
   rows: {
+    id: string;
     name: string;
     birthYear: string;
     gender: string;
@@ -100,6 +107,7 @@ export class CharactersTableData implements ITableData {
   constructor(characters: ICharacter[]) {
     this.rows = characters.map((character) => {
       return {
+        id: character.id,
         name: character.name,
         birthYear: character.birthYear,
         gender: character.gender,
