@@ -54,3 +54,26 @@ export function getCharactersCompareFunction(
     return a[attribute] - b[attribute];
   };
 }
+
+export function getFilmsCompareFunction(
+  attribute: string,
+  direction: SortDirection
+): (a: any, b: any) => number {
+  if (attribute === 'title') {
+    return function alphabeticalComparer(a: any, b: any) {
+      let compareResult: number = 0;
+      if (a[attribute] < b[attribute]) {
+        compareResult = -1;
+      } else if (a[attribute] > b[attribute]) {
+        compareResult = 1;
+      }
+      if (direction === SortDirection.Descending) {
+        compareResult = -compareResult;
+      }
+      return compareResult;
+    };
+  }
+  return (a: any, b: any) => {
+    return a[attribute] - b[attribute];
+  };
+}

@@ -12,6 +12,7 @@ import {
   ITableParameters,
   SortDirection,
 } from 'src/app/models/table-data.model';
+import { getCharactersCompareFunction } from 'src/app/utility/sort-comparers';
 import {
   ICharactersResponse,
   CharactersTableData,
@@ -86,6 +87,7 @@ export class CharacterListComponent implements OnInit, OnDestroy {
           ? this.state.sortDirection
           : SortDirection.None,
       },
+      getSortingFunction: getCharactersCompareFunction,
     };
     if (this.state.sortAttribute && this.state.sortAttribute !== '') {
       let columnForSortIndex: number =

@@ -33,6 +33,10 @@ export interface ITableParameters {
   searchData: ISearchingData;
   paginationData: IPaginationData;
   sortingData: ISortingData;
+  getSortingFunction: (
+    attribute: string,
+    direction: SortDirection
+  ) => (a: any, b: any) => number;
 }
 
 export enum PagingSection {

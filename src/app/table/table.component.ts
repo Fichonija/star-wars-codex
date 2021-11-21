@@ -12,7 +12,6 @@ import {
   ITableParameters,
   SortDirection,
 } from '../models/table-data.model';
-import { getCharactersCompareFunction } from '../utility/sort-comparers';
 
 @Component({
   selector: 'app-table',
@@ -92,7 +91,7 @@ export class TableComponent implements OnInit {
   }
 
   private sortRows(): void {
-    let compareFunction = getCharactersCompareFunction(
+    let compareFunction = this.tableParameters.getSortingFunction(
       this.tableParameters.sortingData.attribute,
       this.tableParameters.sortingData.direction
     );

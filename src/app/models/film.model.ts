@@ -79,7 +79,7 @@ export class FilmsResponse implements IFilmsResponse {
   }
 }
 
-export class CharactersTableData implements ITableData {
+export class FilmsTableData implements ITableData {
   columns: ITableColumn[] = [
     {
       accessor: 'title',

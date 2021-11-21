@@ -14,6 +14,7 @@ import {
   ICharactersResponse,
   Character,
 } from '../models/character.model';
+import { FilmsResponse, IFilmsResponse } from '../models/film.model';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,11 @@ export class StarWarsService {
     this.characterSubject.asObservable();
 
   private favouriteCharacters: Character[] = [];
+
+  private filmsResponseSubject: Subject<IFilmsResponse> =
+    new Subject<IFilmsResponse>();
+  public filmsResponseObservable: Observable<IFilmsResponse> =
+    this.filmsResponseSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -50,6 +56,25 @@ export class StarWarsService {
       )
       .subscribe((charactersResponse) =>
         this.charactersResponseSubject.next(charactersResponse)
+      );
+  }
+
+  public fetchFilms(page?: number, searchValue?: string): void {
+    let queryParameters = this.buildQueryParameters(page, searchValue);
+    this.http
+      .get(`${this.swapiBaseUrl}films${queryParameters}`)
+      .pipe(
+        map((response: any) => {
+          let filmsResponse = new FilmsResponse(response);
+          filmsResponse.currentPageNumber = page ? page : 1;
+          filmsResponse.currentFilter = searchValue ? searchValue : null;
+
+          return filmsResponse;
+        }),
+        catchError(this.handleError)
+      )
+      .subscribe((filmsResponse) =>
+        this.filmsResponseSubject.next(filmsResponse)
       );
   }
 
