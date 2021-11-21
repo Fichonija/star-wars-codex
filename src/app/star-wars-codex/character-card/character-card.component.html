@@ -1,1 +1,13 @@
-<p>character-card works!</p>
+<div *ngIf="!isLoading; else loading">
+  <p>{{ "My name is " + character.name }}</p>
+  <p>{{ "Height: " + character.height }}</p>
+  <p>{{ "Weight: " + character.weight }}</p>
+  <p>{{ "Year of birth: " + character.birthYear }}</p>
+  <p>{{ "Gender: " + character.gender }}</p>
+  <p>{{ "Homeworld " + character.homeworldUrl }}</p>
+  <p>List of films:</p>
+  <ul>
+    <li *ngFor="let film of character.filmUrls">{{ film }}</li>
+  </ul>
+</div>
+<ng-template #loading>Loading character... Please wait</ng-template>

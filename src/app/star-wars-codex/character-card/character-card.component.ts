@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { ICharacter } from 'src/app/models/character.model';
+import { StarWarsService } from '../star-wars.service';
 
 @Component({
   selector: 'app-character-card',
@@ -7,11 +17,33 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./character-card.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CharacterCardComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
+export class CharacterCardComponent implements OnInit, OnDestroy {
+  private characterId: string;
+  private character$: Subscription;
+
+  @Input() character: ICharacter;
+
+  public isLoading: boolean = true;
+
+  constructor(
+    private route: ActivatedRoute,
+    private changeDetectorRef: ChangeDetectorRef,
+    private starWarsService: StarWarsService
+  ) {}
 
   ngOnInit() {
-    let id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
+    this.characterId = this.route.snapshot.paramMap.get('id') as string;
+    this.character$ = this.starWarsService.characterObservable.subscribe(
+      (character) => {
+        this.character = character;
+        this.isLoading = false;
+        this.changeDetectorRef.markForCheck();
+      }
+    );
+    this.starWarsService.fetchSingleCharacter(this.characterId);
+  }
+
+  ngOnDestroy() {
+    this.character$.unsubscribe();
   }
 }

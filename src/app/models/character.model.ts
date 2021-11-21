@@ -41,17 +41,7 @@ export class CharactersResponse implements ICharactersResponse {
   currentFilter: string | null;
   characters: ICharacter[];
 
-  constructor(charactersResponseData: any) {
-    this.recordCount = charactersResponseData.results.length;
-    this.totalRecordCount = charactersResponseData.count;
-    this.nextPageUrl = charactersResponseData.next;
-    this.previousPageUrl = charactersResponseData.previous;
-    this.characters = charactersResponseData.results.map((characterData: any) =>
-      this.mapCharacter(characterData)
-    );
-  }
-
-  private mapCharacter(characterData: any): ICharacter {
+  static mapCharacter(characterData: any): ICharacter {
     let character: ICharacter = {
       id: '',
       name: characterData.name,
@@ -73,6 +63,16 @@ export class CharactersResponse implements ICharactersResponse {
     character.id = character.id.substring(0, 1);
 
     return character;
+  }
+
+  constructor(charactersResponseData: any) {
+    this.recordCount = charactersResponseData.results.length;
+    this.totalRecordCount = charactersResponseData.count;
+    this.nextPageUrl = charactersResponseData.next;
+    this.previousPageUrl = charactersResponseData.previous;
+    this.characters = charactersResponseData.results.map((characterData: any) =>
+      CharactersResponse.mapCharacter(characterData)
+    );
   }
 }
 

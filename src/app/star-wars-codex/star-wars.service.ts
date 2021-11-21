@@ -5,6 +5,7 @@ import { catchError, map, Observable, Subject, throwError } from 'rxjs';
 import {
   CharactersResponse,
   ICharactersResponse,
+  ICharacter,
 } from '../models/character.model';
 
 @Injectable({
@@ -17,6 +18,10 @@ export class StarWarsService {
     new Subject<ICharactersResponse>();
   public charactersResponseObservable: Observable<ICharactersResponse> =
     this.charactersResponseSubject.asObservable();
+
+  private characterSubject: Subject<ICharacter> = new Subject<ICharacter>();
+  public characterObservable: Observable<ICharacter> =
+    this.characterSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -37,6 +42,16 @@ export class StarWarsService {
       .subscribe((charactersResponse) =>
         this.charactersResponseSubject.next(charactersResponse)
       );
+  }
+
+  public fetchSingleCharacter(id: string): void {
+    this.http
+      .get(`${this.swapiBaseUrl}people/${id}`)
+      .pipe(
+        map((response: any) => CharactersResponse.mapCharacter(response)),
+        catchError(this.handleError)
+      )
+      .subscribe((character) => this.characterSubject.next(character));
   }
 
   private buildQueryParameters(page?: number, searchValue?: string): string {
