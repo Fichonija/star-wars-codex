@@ -1,8 +1,15 @@
 import { ICharactersResponse } from './character.model';
 
+export enum SortDirection {
+  None = 0,
+  Ascending,
+  Descending,
+}
 export interface ITableColumn {
   accessor: string;
   label: string;
+  enableSort: boolean;
+  currentSortDirection: SortDirection;
 }
 
 export interface ITableData {
