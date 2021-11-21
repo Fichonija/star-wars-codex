@@ -22,15 +22,33 @@ export class TablePaginationComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  public getPaginginationInfoText(): string {
+    if (this.paginationData.currentRecordCount === 0) {
+      return 'No records found!';
+    }
+
+    let firstRecordNumber: number =
+      1 +
+      (this.paginationData.currentPageNumber - 1) *
+        this.paginationData.recordsPerPage;
+    let lastRecordNumber: number =
+      firstRecordNumber + this.paginationData.currentRecordCount - 1;
+    let showingRecordsText = `showing ${firstRecordNumber}-${lastRecordNumber} of ${this.paginationData.totalRecordCount}`;
+
+    let paginationInfoText = `Page ${this.paginationData.currentPageNumber} of ${this.paginationData.numberOfPages}, ${showingRecordsText}`;
+
+    return paginationInfoText;
+  }
+
   public onFirstPageClicked() {
     this.getPage.emit(1);
   }
 
   public onPreviousPageClicked() {
-    this.getPage.emit(--this.paginationData.currentPageNumber);
+    this.getPage.emit(this.paginationData.currentPageNumber - 1);
   }
 
   public onNextPageClicked() {
-    this.getPage.emit(++this.paginationData.currentPageNumber);
+    this.getPage.emit(this.paginationData.currentPageNumber + 1);
   }
 }

@@ -29,6 +29,8 @@ export interface IPaginationData {
   currentPagingSection: PagingSection;
   currentRecordCount: number;
   totalRecordCount: number;
+  numberOfPages: number;
+  recordsPerPage: number;
 }
 
 export class CharactersPaginationData implements IPaginationData {
@@ -36,6 +38,8 @@ export class CharactersPaginationData implements IPaginationData {
   currentPagingSection: PagingSection;
   currentRecordCount: number;
   totalRecordCount: number;
+  numberOfPages: number;
+  recordsPerPage: number = 10;
 
   constructor(charactersResponse: ICharactersResponse) {
     this.currentPageNumber = charactersResponse.currentPageNumber;
@@ -44,6 +48,7 @@ export class CharactersPaginationData implements IPaginationData {
 
     this.currentRecordCount = charactersResponse.recordCount;
     this.totalRecordCount = charactersResponse.totalRecordCount;
+    this.numberOfPages = Math.ceil(this.totalRecordCount / this.recordsPerPage);
   }
 
   private getCurrentPagingSection(

@@ -1,14 +1,7 @@
 <div id="pagination">
   <div id="pagination-info">
     <p>
-      {{
-        "Page " +
-          paginationData.currentPageNumber +
-          ", showing " +
-          paginationData.currentRecordCount +
-          " of " +
-          paginationData.totalRecordCount
-      }}
+      {{ getPaginginationInfoText() }}
     </p>
   </div>
   <div id="pagination-actions">
