@@ -21,7 +21,9 @@
       <td *ngFor="let column of tableParameters.data.columns">
         {{ row[column.accessor] }}
       </td>
-      <td><button>Details</button></td>
+      <td>
+        <button [routerLink]="['/characters', row.id]">Details</button>
+      </td>
     </tr>
   </tbody>
 </table>

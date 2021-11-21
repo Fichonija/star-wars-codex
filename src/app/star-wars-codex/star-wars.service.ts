@@ -56,7 +56,8 @@ export class StarWarsService {
       );
     } else {
       console.error(
-        `Star Wars Service: Status: ${error.status}, ` + `Body: ${error.error}`
+        `Star Wars Service: Status: ${error.status}, ` +
+          `Message: ${error.message}`
       );
     }
     return throwError(
