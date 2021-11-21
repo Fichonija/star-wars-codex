@@ -1,4 +1,5 @@
 import { ICharactersResponse } from './character.model';
+import { IFilmsResponse } from './film.model';
 
 export enum SortDirection {
   None = 0,
@@ -79,6 +80,41 @@ export class CharactersPaginationData implements IPaginationData {
     } else if (charactersResponse.previousPageUrl === null) {
       return PagingSection.FirstPage;
     } else if (charactersResponse.nextPageUrl === null) {
+      return PagingSection.LastPage;
+    } else {
+      return PagingSection.Middle;
+    }
+  }
+}
+
+export class FilmsPaginationData implements IPaginationData {
+  currentPageNumber: number;
+  currentPagingSection: PagingSection;
+  currentRecordCount: number;
+  totalRecordCount: number;
+  numberOfPages: number;
+  recordsPerPage: number = 7;
+
+  constructor(filmsResponse: IFilmsResponse) {
+    this.currentPageNumber = filmsResponse.currentPageNumber;
+    this.currentPagingSection = this.getCurrentPagingSection(filmsResponse);
+
+    this.currentRecordCount = filmsResponse.recordCount;
+    this.totalRecordCount = filmsResponse.totalRecordCount;
+    this.numberOfPages = Math.ceil(this.totalRecordCount / this.recordsPerPage);
+  }
+
+  private getCurrentPagingSection(
+    filmsResponse: IFilmsResponse
+  ): PagingSection {
+    if (
+      filmsResponse.previousPageUrl === null &&
+      filmsResponse.nextPageUrl === null
+    ) {
+      return PagingSection.OnlyPage;
+    } else if (filmsResponse.previousPageUrl === null) {
+      return PagingSection.FirstPage;
+    } else if (filmsResponse.nextPageUrl === null) {
       return PagingSection.LastPage;
     } else {
       return PagingSection.Middle;
