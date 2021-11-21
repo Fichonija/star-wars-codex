@@ -13,6 +13,7 @@ import { CharacterListComponent } from './star-wars-codex/character-list/charact
 import { TableComponent } from './table/table.component';
 import { TablePaginationComponent } from './table/table-pagination/table-pagination.component';
 import { TableSearchComponent } from './table/table-search/table-search.component';
+import { CharacterCardComponent } from './star-wars-codex/character-card/character-card.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TableSearchComponent } from './table/table-search/table-search.componen
     TableComponent,
     TablePaginationComponent,
     TableSearchComponent,
+    CharacterCardComponent,
   ],
   imports: [
     BrowserModule,
